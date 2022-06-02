@@ -9,3 +9,11 @@
   grid-area: name;
   align-self: flex-end;
 }
+
+@media screen and (max-width: 879px) {
+  .profile__name {
+    justify-self: end;
+    font-size: 27px;
+    line-height: 33px;
+  }
+}

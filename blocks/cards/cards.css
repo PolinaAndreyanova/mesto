@@ -6,3 +6,16 @@
   row-gap: 20px;
   column-gap: 17px;
 }
+
+@media screen and (max-width: 879px) {
+  .cards {
+    margin-left: calc((100% - 282px*2 - 17px)/2);
+    margin-right: calc((100% - 282px*2 - 17px)/2);
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .cards {
+    margin: 36px calc((100% - 282px)/2) 0;
+  }
+}
