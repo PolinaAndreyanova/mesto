@@ -1,0 +1,9 @@
+.profile__info {
+  margin: 0 244px 0 30px;
+  display: grid;
+  grid-template-areas: 
+  "name edit-button"
+  "status none";
+  row-gap: 16px;
+  column-gap: 18px;
+}
