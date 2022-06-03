@@ -1,0 +1,23 @@
+.popup__close-button {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background-image: url(../../../images/popup-close-icon.png);
+  height: 32px;
+  width: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 600px) {
+  .popup__close-button {
+    height: 20px;
+    width: 20px;
+    background-image: url(../../../images/popup-close-icon-2.png);
+    top: -36px;
+    right: 0;
+  }
+}

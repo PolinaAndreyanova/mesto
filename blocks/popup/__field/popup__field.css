@@ -1,0 +1,19 @@
+.popup__field {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: rgba(0, 0, 0, 0.2);
+  padding: 0;
+  width: 358px;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__field {
+    width: 238px;
+  }
+}
