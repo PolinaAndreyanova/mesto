@@ -4,7 +4,7 @@
   border: none;
   width: 150px;
   height: 50px;
-  background-image: url(../../../images/profile-add-button.png);
+  background-image: url(../../../images/profile-add-button.svg);
   background-color: #000000;
   align-self: center;
 }
@@ -13,6 +13,6 @@
   .profile__add-button {
     width: 282px;
     height: 50px;
-    background-image: url(../../../images/profile-add-button-2.png);
+    background-image: url(../../../images/profile-add-button-2.svg);
   }
 }
