@@ -7,6 +7,12 @@
   background-image: url(../../../images/profile-add-button.svg);
   background-color: #000000;
   align-self: center;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.profile__add-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 879px) {
