@@ -1,6 +1,4 @@
 .popup__submit-button {
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
@@ -15,6 +13,7 @@
   padding: 0;
   opacity: 1;
   transition: opacity 0.5s;
+  cursor: pointer;
 }
 
 .popup__submit-button:hover {

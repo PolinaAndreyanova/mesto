@@ -5,15 +5,16 @@
   width: 24px;
   height: 24px;
   background-image: url(../../../images/profile-edit-button.svg);
-  background-color: #000000;
+  background-color: transparent;
   grid-area: edit-button;
   align-self: flex-end;
   opacity: 1;
   transition: opacity 0.5s;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 879px) {

@@ -5,13 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 
 <body class="page">
   <header class="header">
     <img src="./images/header-logo.svg" alt="Логотип" class="header__logo">
-    <div class="header__line"></div>
   </header>
 
   <main class="content">
@@ -20,9 +19,9 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__status">Исследователь океана</p>
-        <button class="profile__edit-button"></button>
+        <button type="button" class="profile__edit-button"></button>
       </div>
-      <button class="profile__add-button"></button>
+      <button type="button" class="profile__add-button"></button>
     </section>
 
     <section class="cards">
@@ -30,42 +29,42 @@
         <img src="./images/card-krasnoyarskij-kraj.jpg" alt="Красноярский Край" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Красноярский Край</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-respublika-altaj.jpg" alt="Республика Алтай" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Республика Алтай</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-irkutskaya-oblast.jpg" alt="Иркутская Область" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Иркутская Область</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-elbrus.jpg" alt="Эльбрус" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Эльбрус</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-sochi.jpg" alt="Сочи" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Сочи</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
       <article class="card">
         <img src="./images/card-murmansk.jpg" alt="Мурманск" class="card__image">
         <div class="card__information">
           <h2 class="card__title">Мурманск</h2>
-          <button class="card__like-button"></button>
+          <button type="button" class="card__like-button"></button>
         </div>
       </article>
     </section>
@@ -77,12 +76,12 @@
 
   <div class="popup">
     <div class="popup__content">
-      <button class="popup__close-button"></button>
+      <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form method="get" class="popup__form">
-        <input type="text" class="popup__field popup__field_name" name="name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__field popup__field_status" name="status" value="Исследователь океана">
-        <button class="popup__submit-button">Сохранить</button>
+      <form method="get" name="info-form" class="popup__form">
+        <input type="text" class="popup__field popup__field_type_name" name="name" value="Жак-Ив Кусто">
+        <input type="text" class="popup__field popup__field_type_status" name="status" value="Исследователь океана">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
   </div>
