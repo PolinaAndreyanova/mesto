@@ -31,13 +31,25 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_edit-profile">
     <div class="popup__content">
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="get" name="info-form" class="popup__form">
         <input type="text" class="popup__field popup__field_type_name" name="name" value="Жак-Ив Кусто">
         <input type="text" class="popup__field popup__field_type_status" name="status" value="Исследователь океана">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_add-profile">
+    <div class="popup__content">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form method="get" name="info-form" class="popup__form">
+        <input type="text" class="popup__field popup__field_type_name" name="name" placeholder="Название">
+        <input type="text" class="popup__field popup__field_type_status" name="status" placeholder="Ссылка на картинку">
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
