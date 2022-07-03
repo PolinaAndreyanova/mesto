@@ -79,6 +79,8 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
   statusInput.value = profileStatus.textContent;
+  titleInput.value = '';
+  linkInput.value = '';
 }
 
 function closePopup(popup) {

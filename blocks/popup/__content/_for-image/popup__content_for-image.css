@@ -1,4 +1,5 @@
 .popup__content_for-image {
+  height: 75%;
   width: 75%;
   background-color: transparent;
   box-shadow: none;
@@ -7,6 +8,7 @@
 
 @media screen and (max-width: 600px) {
   .popup__content_for-image {
+    height: 50%;
     width: 75%;
   }
 }
