@@ -32,6 +32,10 @@ function addCard(title, link) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__title').textContent = title;
   cardElement.querySelector('.card__image').src = link;
+  const cardLike = cardElement.querySelector('.card__like-button');
+  cardLike.addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__like-button_active');
+  })
   return cardElement;
 }
 
