@@ -26,12 +26,17 @@ const initialCards = [
 ];
 
 const cards = document.querySelector('.cards');
-for (let i = 0; i < initialCards.length; i++) {
+
+function addCard(title, link) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__image').src = initialCards[i].link;
-  cardElement.querySelector('.card__title').textContent = initialCards[i].name;
-  cards.append(cardElement);
+  cardElement.querySelector('.card__title').textContent = title;
+  cardElement.querySelector('.card__image').src = link;
+  return cardElement;
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  cards.append(addCard(initialCards[i].name, initialCards[i].link));
 }
 
 let profile = document.querySelector('.profile');
@@ -44,7 +49,7 @@ const popupEditProfileCloseButton = popupEditProfile.querySelector('.popup__clos
 let nameInput = popupEditProfile.querySelector('.popup__field_type_name');
 let statusInput = popupEditProfile.querySelector('.popup__field_type_status');
 
-let form = popupEditProfile.querySelector('.popup__form');
+let editForm = popupEditProfile.querySelector('.popup__form');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -60,19 +65,31 @@ profileEditButton.addEventListener('click', () => openPopup(popupEditProfile));
 popupEditProfileCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
 
 
-function formSubmitHandler(evt) {
+function submitEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileStatus.textContent = statusInput.value;
   closePopup(popupEditProfile);
 }
 
-form.addEventListener('submit', formSubmitHandler);
+editForm.addEventListener('submit', submitEditForm);
 
 const profileAddButton = profile.querySelector('.profile__add-button');
 
 let popupAddProfile = document.querySelectorAll('.popup')[1];
 const popupAddProfileCloseButton = popupAddProfile.querySelector('.popup__close-button');
+let titleInput = popupAddProfile.querySelector('.popup__field_type_title');
+let linkInput = popupAddProfile.querySelector('.popup__field_type_link');
+
+let addForm = popupAddProfile.querySelector('.popup__form');
 
 profileAddButton.addEventListener('click', () => openPopup(popupAddProfile));
 popupAddProfileCloseButton.addEventListener('click', () => closePopup(popupAddProfile));
+
+function submitAddForm(evt) {
+  evt.preventDefault();
+  cards.prepend(addCard(titleInput.value, linkInput.value));
+  closePopup(popupAddProfile);
+}
+
+addForm.addEventListener('submit', submitAddForm);
