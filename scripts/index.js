@@ -44,6 +44,18 @@ function addCard(title, link) {
     cardElement.remove();
   });
 
+  const cardImage = cardElement.querySelector('.card__image');
+  cardImage.addEventListener('click', function() {
+    let popupBigImage = document.querySelectorAll('.popup')[2];
+    const popupBigImageCloseButton = popupBigImage.querySelector('.popup__close-button');
+
+    openPopup(popupBigImage);
+    popupBigImageCloseButton.addEventListener('click', () => closePopup(popupBigImage));
+
+    popupBigImage.querySelector('.popup__image').src = link;
+    popupBigImage.querySelector('.popup__subtitle').textContent = title
+  });
+
   return cardElement;
 }
 
