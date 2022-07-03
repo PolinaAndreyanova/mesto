@@ -30,12 +30,20 @@ const cards = document.querySelector('.cards');
 function addCard(title, link) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
   cardElement.querySelector('.card__title').textContent = title;
   cardElement.querySelector('.card__image').src = link;
+
   const cardLike = cardElement.querySelector('.card__like-button');
   cardLike.addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__like-button_active');
-  })
+  });
+
+  const cardTrash = cardElement.querySelector('.card__trash-button');
+  cardTrash.addEventListener('click', function() {
+    cardElement.remove();
+  });
+
   return cardElement;
 }
 
