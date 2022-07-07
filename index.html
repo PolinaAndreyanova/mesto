@@ -35,10 +35,12 @@
     <div class="popup__content">
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form method="get" name="info-form" class="popup__form">
-        <input required type="text" class="popup__field popup__field_type_name" name="name" value="Жак-Ив Кусто">
-        <input required type="text" class="popup__field popup__field_type_status" name="status" value="Исследователь океана">
-        <button type="submit" class="popup__submit-button">Сохранить</button>
+      <form method="get" name="info-form" class="popup__form" novalidate>
+        <input required id="name-input" type="text" class="popup__input popup__input_type_name" name="name" value="Жак-Ив Кусто" minlength="2" maxlength="40">
+        <p class="popup__error name-input-error"></p>
+        <input required id="status-input" type="text" class="popup__input popup__input_type_status" name="status" value="Исследователь океана" minlength="2" maxlength="200">
+        <p class="popup__error status-input-error"></p>
+        <button type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
       </form>
     </div>
   </div>
@@ -47,10 +49,12 @@
     <div class="popup__content">
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form method="get" name="info-form" class="popup__form">
-        <input required type="text" class="popup__field popup__field_type_title" name="title" placeholder="Название">
-        <input required type="url" class="popup__field popup__field_type_link" name="link" placeholder="Ссылка на картинку">
-        <button type="submit" class="popup__submit-button">Сохранить</button>
+      <form method="get" name="info-form" class="popup__form" novalidate>
+        <input required id="title-input" type="text" class="popup__input popup__input_type_title" name="title" placeholder="Название" minlength="2" maxlength="30">
+        <p class="popup__error title-input-error"></p>
+        <input required id="link-input" type="url" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку">
+        <p class="popup__error link-input-error"></p>
+        <button type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
       </form>
     </div>
   </div>
@@ -75,6 +79,7 @@
   </template>
 
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

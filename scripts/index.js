@@ -31,6 +31,9 @@ const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
 
 const popupBigImage = document.querySelector('.popup_big-image');
+popupBigImage.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) closePopup(popupBigImage);
+});
 const popupBigImageCloseButton = popupBigImage.querySelector('.popup__close-button');
 popupBigImageCloseButton.addEventListener('click', () => closePopup(popupBigImage));
 
@@ -76,14 +79,19 @@ const profileName = profile.querySelector('.profile__name');
 const profileStatus = profile.querySelector('.profile__status');
 
 const popupEditProfile = document.querySelector('.popup_edit-profile');
+popupEditProfile.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) closePopup(popupEditProfile);
+});
 const popupEditProfileCloseButton = popupEditProfile.querySelector('.popup__close-button');
-const nameInput = popupEditProfile.querySelector('.popup__field_type_name');
-const statusInput = popupEditProfile.querySelector('.popup__field_type_status');
+const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
+const statusInput = popupEditProfile.querySelector('.popup__input_type_status');
 
 const formEdit = popupEditProfile.querySelector('.popup__form');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  popup.querySelectorAll('.popup__error').forEach((elem) => elem.textContent = '');
+  popup.querySelectorAll('.popup__input').forEach((elem) => elem.classList.remove('popup__input_type_error'));
 }
 
 function closePopup(popup) {
@@ -110,10 +118,12 @@ formEdit.addEventListener('submit', submitEditForm);
 const profileAddButton = profile.querySelector('.profile__add-button');
 
 const popupAddProfile = document.querySelector('.popup_add-profile');
+popupAddProfile.addEventListener('click', (evt) => {
+  if (evt.currentTarget === evt.target) closePopup(popupAddProfile);
+});
 const popupAddProfileCloseButton = popupAddProfile.querySelector('.popup__close-button');
-const titleInput = popupAddProfile.querySelector('.popup__field_type_title');
-const linkInput = popupAddProfile.querySelector('.popup__field_type_link');
-
+const titleInput = popupAddProfile.querySelector('.popup__input_type_title');
+const linkInput = popupAddProfile.querySelector('.popup__input_type_link');
 const formAdd = popupAddProfile.querySelector('.popup__form');
 
 profileAddButton.addEventListener('click', () => {
@@ -130,3 +140,11 @@ function submitAddForm(evt) {
 }
 
 formAdd.addEventListener('submit', submitAddForm);
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupEditProfile);
+    closePopup(popupAddProfile);
+    closePopup(popupBigImage);
+  }
+});
