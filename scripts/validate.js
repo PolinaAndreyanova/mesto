@@ -34,7 +34,6 @@ const setEventListeners = (set, formElement) => {
 
 const enableValidation = (set) => {
   const formList = Array.from(document.querySelectorAll(set.formSelector));
-  // console.log(formList);
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
@@ -51,8 +50,7 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (set, inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(set.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableSubmitButton(set.inactiveButtonClass, buttonElement);
   } else {
     buttonElement.classList.remove(set.inactiveButtonClass);
     buttonElement.disabled = false;

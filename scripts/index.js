@@ -113,6 +113,11 @@ function cleanPopup(popup) {
   popup.querySelectorAll('.popup__input').forEach((elem) => elem.classList.remove('popup__input_type_error'));
 }
 
+function disableSubmitButton(disableClass, button) {
+  button.classList.add(disableClass);
+  button.disabled = true;
+}
+
 profileEditButton.addEventListener('click', () => {
   cleanPopup(popupEditProfile);
   nameInput.value = profileName.textContent;
@@ -138,12 +143,11 @@ const popupAddProfileCloseButton = popupAddProfile.querySelector('.popup__close-
 const titleInput = popupAddProfile.querySelector('.popup__input_type_title');
 const linkInput = popupAddProfile.querySelector('.popup__input_type_link');
 const formAdd = popupAddProfile.querySelector('.popup__form');
+const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
 
 profileAddButton.addEventListener('click', () => {
   cleanPopup(popupAddProfile);
-  const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
-  popupAddProfileSubmitButton.classList.add('popup__submit-button_disabled');
-  popupAddProfileSubmitButton.disabled = true;
+  disableSubmitButton('popup__submit-button_disabled', popupAddProfileSubmitButton);
   titleInput.value = '';
   linkInput.value = '';
   openPopup(popupAddProfile);
