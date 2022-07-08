@@ -141,7 +141,9 @@ const formAdd = popupAddProfile.querySelector('.popup__form');
 
 profileAddButton.addEventListener('click', () => {
   cleanPopup(popupAddProfile);
-  popupAddProfile.querySelector('.popup__submit-button').classList.add('popup__submit-button_disabled');
+  const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
+  popupAddProfileSubmitButton.classList.add('popup__submit-button_disabled');
+  popupAddProfileSubmitButton.disabled = true;
   titleInput.value = '';
   linkInput.value = '';
   openPopup(popupAddProfile);
