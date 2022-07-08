@@ -1,14 +1,7 @@
 .popup__content_for-image {
-  height: 75%;
-  width: 75%;
+  max-height: 75vh;
+  max-width: 75vw;
   background-color: transparent;
   box-shadow: none;
   border-radius: 0;
-}
-
-@media screen and (max-width: 600px) {
-  .popup__content_for-image {
-    height: 50%;
-    width: 75%;
-  }
 }
