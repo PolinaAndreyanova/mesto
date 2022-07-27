@@ -10,9 +10,7 @@ const set = {
 }; 
 
 const formList = Array.from(document.querySelectorAll('.popup__form'));
-console.log(formList);
 formList.forEach((item) => {
-  console.log(item);
   const itemValidation = new FormValidator(set, item);
   itemValidation.enableValidation();
 });
