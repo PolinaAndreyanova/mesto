@@ -1,3 +1,5 @@
+import { Card } from "./card.js";
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -28,49 +30,18 @@ const initialCards = [
 initialCards.reverse();
 
 const cards = document.querySelector('.cards');
-const cardTemplate = document.querySelector('#card-template').content;
-
-const popupBigImage = document.querySelector('.popup_type_big-image');
-const popupBigImageCloseButton = popupBigImage.querySelector('.popup__close-button');
-popupBigImageCloseButton.addEventListener('click', () => closePopup(popupBigImage));
-
-function createCard(title, link) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-
-  const cardImage = cardElement.querySelector('.card__image');
-  cardElement.querySelector('.card__title').textContent = title;
-  cardImage.src = link;
-  cardImage.alt = title;
-
-  const cardLike = cardElement.querySelector('.card__like-button');
-  cardLike.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__like-button_active');
-  });
-
-  const cardTrash = cardElement.querySelector('.card__trash-button');
-  cardTrash.addEventListener('click', function () {
-    cardElement.remove();
-  });
-  
-  const popupBigImageImage = popupBigImage.querySelector('.popup__image');
-  const popupBigImageSubtitle = popupBigImage.querySelector('.popup__subtitle');
-  cardImage.addEventListener('click', function () {
-    openPopup(popupBigImage);
-    popupBigImageImage.src = link;
-    popupBigImageImage.alt = title;
-    popupBigImageSubtitle.textContent = title;
-  });
-
-  return cardElement;
-}
 
 function renderCard(card) {
   cards.prepend(card);
 }
 
-initialCards.forEach((card) => {
-  renderCard(createCard(card.name, card.link));
+initialCards.forEach((item) => {
+  const card = new Card(item, '#card-template');
+  const cardElement = card.generateCard();
+  renderCard(cardElement);
 });
+
+
 
 const profile = document.querySelector('.profile');
 const profileEditButton = profile.querySelector('.profile__edit-button');
@@ -96,13 +67,13 @@ function handleEscClick(evt) {
   }
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscClick);
   popup.addEventListener('click', handleCloseOverlay);
 }
 
-function closePopup(popup) {
+export function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscClick);
   popup.removeEventListener('click', handleCloseOverlay);
