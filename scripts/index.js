@@ -83,7 +83,7 @@ function cleanPopup(popup) {
   popup.querySelectorAll('.popup__input').forEach((elem) => elem.classList.remove('popup__input_type_error'));
 }
 
-function disableSubmitButton(disableClass, button) {
+export function disableSubmitButton(disableClass, button) {
   button.classList.add(disableClass);
   button.disabled = true;
 }
@@ -97,7 +97,13 @@ function submitEditForm(evt) {
 
 function submitAddForm(evt) {
   evt.preventDefault();
-  renderCard(createCard(titleInput.value, linkInput.value));
+  const newItem = {
+    name: titleInput.value, 
+    link: linkInput.value
+  }
+  const newCard = new Card(newItem, '#card-template');
+  const newCardElement = newCard.generateCard();
+  renderCard(newCardElement);
   closePopup(popupAddProfile);
 }
 
