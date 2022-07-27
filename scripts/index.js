@@ -31,29 +31,28 @@ initialCards.reverse();
 
 const cards = document.querySelector('.cards');
 
-function renderCard(card) {
-  cards.prepend(card);
-}
-
-initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template');
-  const cardElement = card.generateCard();
-  renderCard(cardElement);
-});
-
-
-
 const profile = document.querySelector('.profile');
 const profileEditButton = profile.querySelector('.profile__edit-button');
 const profileName = profile.querySelector('.profile__name');
 const profileStatus = profile.querySelector('.profile__status');
+const profileAddButton = profile.querySelector('.profile__add-button');
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupEditProfileCloseButton = popupEditProfile.querySelector('.popup__close-button');
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
 const statusInput = popupEditProfile.querySelector('.popup__input_type_status');
-
 const formEdit = popupEditProfile.querySelector('.popup__form');
+
+const popupAddProfile = document.querySelector('.popup_type_add-profile');
+const popupAddProfileCloseButton = popupAddProfile.querySelector('.popup__close-button');
+const titleInput = popupAddProfile.querySelector('.popup__input_type_title');
+const linkInput = popupAddProfile.querySelector('.popup__input_type_link');
+const formAdd = popupAddProfile.querySelector('.popup__form');
+const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
+
+function renderCard(card) {
+  cards.prepend(card);
+}
 
 function handleCloseOverlay(evt) {
   if (evt.currentTarget === evt.target) {
@@ -89,15 +88,6 @@ function disableSubmitButton(disableClass, button) {
   button.disabled = true;
 }
 
-profileEditButton.addEventListener('click', () => {
-  cleanPopup(popupEditProfile);
-  nameInput.value = profileName.textContent;
-  statusInput.value = profileStatus.textContent;
-  openPopup(popupEditProfile);
-});
-popupEditProfileCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
-
-
 function submitEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -105,16 +95,28 @@ function submitEditForm(evt) {
   closePopup(popupEditProfile);
 }
 
+function submitAddForm(evt) {
+  evt.preventDefault();
+  renderCard(createCard(titleInput.value, linkInput.value));
+  closePopup(popupAddProfile);
+}
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '#card-template');
+  const cardElement = card.generateCard();
+  renderCard(cardElement);
+});
+
+profileEditButton.addEventListener('click', () => {
+  cleanPopup(popupEditProfile);
+  nameInput.value = profileName.textContent;
+  statusInput.value = profileStatus.textContent;
+  openPopup(popupEditProfile);
+});
+
+popupEditProfileCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
+
 formEdit.addEventListener('submit', submitEditForm);
-
-const profileAddButton = profile.querySelector('.profile__add-button');
-
-const popupAddProfile = document.querySelector('.popup_type_add-profile');
-const popupAddProfileCloseButton = popupAddProfile.querySelector('.popup__close-button');
-const titleInput = popupAddProfile.querySelector('.popup__input_type_title');
-const linkInput = popupAddProfile.querySelector('.popup__input_type_link');
-const formAdd = popupAddProfile.querySelector('.popup__form');
-const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
 
 profileAddButton.addEventListener('click', () => {
   cleanPopup(popupAddProfile);
@@ -123,12 +125,7 @@ profileAddButton.addEventListener('click', () => {
   linkInput.value = '';
   openPopup(popupAddProfile);
 });
-popupAddProfileCloseButton.addEventListener('click', () => closePopup(popupAddProfile));
 
-function submitAddForm(evt) {
-  evt.preventDefault();
-  renderCard(createCard(titleInput.value, linkInput.value));
-  closePopup(popupAddProfile);
-}
+popupAddProfileCloseButton.addEventListener('click', () => closePopup(popupAddProfile));
 
 formAdd.addEventListener('submit', submitAddForm);
