@@ -1,4 +1,5 @@
-import { Card } from "./card.js";
+import { Card } from "./Сard.js";
+import { FormValidator } from "./FormValidator.js";
 
 const initialCards = [
   {
@@ -27,7 +28,14 @@ const initialCards = [
   }
 ];
 
-initialCards.reverse();
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}; 
 
 const cards = document.querySelector('.cards');
 
@@ -49,6 +57,11 @@ const titleInput = popupAddProfile.querySelector('.popup__input_type_title');
 const linkInput = popupAddProfile.querySelector('.popup__input_type_link');
 const formAdd = popupAddProfile.querySelector('.popup__form');
 const popupAddProfileSubmitButton = popupAddProfile.querySelector('.popup__submit-button');
+
+const popupBigImage = document.querySelector('.popup_type_big-image');
+const popupBigImageCloseButton = popupBigImage.querySelector('.popup__close-button');
+
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 function renderCard(card) {
   cards.prepend(card);
@@ -72,7 +85,7 @@ export function openPopup(popup) {
   popup.addEventListener('click', handleCloseOverlay);
 }
 
-export function closePopup(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscClick);
   popup.removeEventListener('click', handleCloseOverlay);
@@ -81,11 +94,6 @@ export function closePopup(popup) {
 function cleanPopup(popup) {
   popup.querySelectorAll('.popup__error').forEach((elem) => elem.textContent = '');
   popup.querySelectorAll('.popup__input').forEach((elem) => elem.classList.remove('popup__input_type_error'));
-}
-
-export function disableSubmitButton(disableClass, button) {
-  button.classList.add(disableClass);
-  button.disabled = true;
 }
 
 function submitEditForm(evt) {
@@ -101,16 +109,19 @@ function submitAddForm(evt) {
     name: titleInput.value, 
     link: linkInput.value
   }
-  const newCard = new Card(newItem, '#card-template');
-  const newCardElement = newCard.generateCard();
-  renderCard(newCardElement);
+  initializationCard(newItem, '#card-template');
   closePopup(popupAddProfile);
 }
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template');
+function initializationCard(item, cardSelector) {
+  const card = new Card(item, cardSelector);
   const cardElement = card.generateCard();
   renderCard(cardElement);
+}
+
+initialCards.reverse();
+initialCards.forEach((item) => {
+  initializationCard(item, '#card-template');
 });
 
 profileEditButton.addEventListener('click', () => {
@@ -126,12 +137,19 @@ formEdit.addEventListener('submit', submitEditForm);
 
 profileAddButton.addEventListener('click', () => {
   cleanPopup(popupAddProfile);
-  disableSubmitButton('popup__submit-button_disabled', popupAddProfileSubmitButton);
-  titleInput.value = '';
-  linkInput.value = '';
+  popupAddProfileSubmitButton.classList.add('popup__submit-button_disabled');
+  popupAddProfileSubmitButton.disabled = true;
+  formAdd.reset();
   openPopup(popupAddProfile);
 });
 
 popupAddProfileCloseButton.addEventListener('click', () => closePopup(popupAddProfile));
 
 formAdd.addEventListener('submit', submitAddForm);
+
+popupBigImageCloseButton.addEventListener('click', () => closePopup(popupBigImage));
+
+formList.forEach((item) => {
+  const itemValidation = new FormValidator(validationConfig, item);
+  itemValidation.enableValidation();
+});

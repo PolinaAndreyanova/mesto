@@ -1,4 +1,4 @@
-import { openPopup, closePopup } from "./index.js";
+import { openPopup } from "./index.js";
 
 export class Card {
   constructor(data, cardSelector) {
@@ -17,31 +17,33 @@ export class Card {
     return cardElement;
   }
 
-  _setEventListeners() {
-    this._cardLike = this._element.querySelector('.card__like-button');
-    this._cardLike.addEventListener('click', function (evt) {
-      evt.target.classList.toggle('card__like-button_active');
-    });
+  _toggleLike() {
+    this._cardLike.classList.toggle('card__like-button_active');
+  }
 
-    this._cardTrash = this._element.querySelector('.card__trash-button');
-    this._cardTrash.addEventListener('click', () => {
-      this._element.remove(); 
-    });
+  _deleteElement() {
+    this._element.remove();
+  }
 
+  _handlePopup() {
     this._popupBigImage = document.querySelector('.popup_type_big-image');
     this._popupBigImageImage = this._popupBigImage.querySelector('.popup__image');
     this._popupBigImageSubtitle = this._popupBigImage.querySelector('.popup__subtitle');
-    this._elementImage.addEventListener('click', () => {
-      openPopup(this._popupBigImage);
-      this._popupBigImageImage.src = this._link;
-      this._popupBigImageImage.alt = this._name;
-      this._popupBigImageSubtitle.textContent = this._name;
-    });
 
-    this._popupBigImageCloseButton = this._popupBigImage.querySelector('.popup__close-button');
-    this._popupBigImageCloseButton.addEventListener('click', () => {
-      closePopup(this._popupBigImage)
-    });
+    openPopup(this._popupBigImage);
+    this._popupBigImageImage.src = this._link;
+    this._popupBigImageImage.alt = this._name;
+    this._popupBigImageSubtitle.textContent = this._name;
+  }
+
+  _setEventListeners() {
+    this._cardLike = this._element.querySelector('.card__like-button');
+    this._cardLike.addEventListener('click', () => this._toggleLike());
+
+    this._cardTrash = this._element.querySelector('.card__trash-button');
+    this._cardTrash.addEventListener('click', () => this._deleteElement());
+
+    this._elementImage.addEventListener('click', () => this._handlePopup());
   }
 
   generateCard() {

@@ -1,5 +1,3 @@
-import { disableSubmitButton } from "./index.js";
-
 export class FormValidator {
   constructor(data, formElement) {
     this._formSelector = data.formSelector;
@@ -11,9 +9,14 @@ export class FormValidator {
     this._formElement = formElement;
   }
 
+  _disableSubmitButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.disabled = true;
+  }
+
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      disableSubmitButton(this._inactiveButtonClass, this._buttonElement);
+      this._disableSubmitButton();
     } else {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
