@@ -1,10 +1,10 @@
-import { openPopup } from "../pages/index.js";
-
 export class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector; // '#card-template'
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -25,17 +25,6 @@ export class Card {
     this._element.remove();
   }
 
-  _handlePopup() {
-    this._popupBigImage = document.querySelector('.popup_type_big-image');
-    this._popupBigImageImage = this._popupBigImage.querySelector('.popup__image');
-    this._popupBigImageSubtitle = this._popupBigImage.querySelector('.popup__subtitle');
-
-    openPopup(this._popupBigImage);
-    this._popupBigImageImage.src = this._link;
-    this._popupBigImageImage.alt = this._name;
-    this._popupBigImageSubtitle.textContent = this._name;
-  }
-
   _setEventListeners() {
     this._cardLike = this._element.querySelector('.card__like-button');
     this._cardLike.addEventListener('click', () => this._toggleLike());
@@ -43,7 +32,7 @@ export class Card {
     this._cardTrash = this._element.querySelector('.card__trash-button');
     this._cardTrash.addEventListener('click', () => this._deleteElement());
 
-    this._elementImage.addEventListener('click', () => this._handlePopup());
+    this._elementImage.addEventListener('click', () => this._handleCardClick(this._data));
   }
 
   generateCard() {
