@@ -28,13 +28,9 @@ export class PopupWithForm extends Popup {
   }
 
   setInputValues(data) {
-    this._popupInputs[0].value = data[0];
-    this._popupInputs[1].value = data[1];
-  }
-
-  disableSubmitButton() {
-    this._popupSubmitButton.classList.add('popup__submit-button_disabled');
-    this._popupSubmitButton.disabled = true;
+    this._popupInputs.forEach((input) => {
+      input.value = data[input.name];
+    });
   }
 
   close() {
