@@ -1,6 +1,6 @@
 # Проект: Место
 
-## Посмотреть: https://polinaandreyanova.github.io/mesto/index.html
+## Посмотреть: https://polinaandreyanova.github.io/mesto/
 
 ### Обзор
 
