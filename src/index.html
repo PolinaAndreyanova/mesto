@@ -14,7 +14,10 @@
 
   <main class="content">
     <section class="profile">
-      <img src="<%=require('./images/profile-avatar.png')%>" alt="Аватар" class="profile__avatar">
+      <div class="profile__avatar-content">
+        <button type="button" class="profile__avatar-edit-button"></button>
+        <img src="<%=require('./images/profile-avatar.png')%>" alt="Аватар" class="profile__avatar">
+      </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__status">Исследователь океана</p>
@@ -35,9 +38,11 @@
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="get" name="info-form" class="popup__form" novalidate>
-        <input required id="name-input" type="text" class="popup__input popup__input_type_name" name="name" value="Жак-Ив Кусто" minlength="2" maxlength="40" placeholder="Имя">
+        <input required id="name-input" type="text" class="popup__input popup__input_type_name" name="name"
+          value="Жак-Ив Кусто" minlength="2" maxlength="40" placeholder="Имя">
         <p class="popup__error name-input-error"></p>
-        <input required id="status-input" type="text" class="popup__input popup__input_type_status" name="status" value="Исследователь океана" minlength="2" maxlength="200" placeholder="Статус">
+        <input required id="status-input" type="text" class="popup__input popup__input_type_status" name="status"
+          value="Исследователь океана" minlength="2" maxlength="200" placeholder="Статус">
         <p class="popup__error status-input-error"></p>
         <button type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
       </form>
@@ -49,9 +54,11 @@
       <button type="button" class="popup__close-button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form method="get" name="place-form" class="popup__form" novalidate>
-        <input required id="title-input" type="text" class="popup__input popup__input_type_title" name="title" placeholder="Название" minlength="2" maxlength="30">
+        <input required id="title-input" type="text" class="popup__input popup__input_type_title" name="title"
+          placeholder="Название" minlength="2" maxlength="30">
         <p class="popup__error title-input-error"></p>
-        <input required id="link-input" type="url" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку">
+        <input required id="link-input" type="url" class="popup__input popup__input_type_link" name="link"
+          placeholder="Ссылка на картинку">
         <p class="popup__error link-input-error"></p>
         <button type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
       </form>
@@ -66,14 +73,38 @@
     </div>
   </div>
 
+  <div class="popup popup_type_delete-card">
+    <div class="popup__content">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button type="submit" class="popup__submit-button">Да</button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_edit-avatar">
+    <div class="popup__content">
+      <button type="button" class="popup__close-button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form method="get" name="avatar-form" class="popup__form" novalidate>
+        <input required id="avatar-input" type="url" class="popup__input popup__input_type_avatar" name="avatar"
+          placeholder="Ссылка на аватар" minlength="2" maxlength="30">
+        <p class="popup__error avatar-input-error"></p>
+        <button type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <template id="card-template">
     <article class="card">
       <img class="card__image">
       <div class="card__information">
         <h2 class="card__title"></h2>
-        <button type="button" class="card__like-button"></button>
+        <div class="card__like">
+          <button type="button" class="card__like-button"></button>
+          <p class="card__like-count">0</p>
+        </div>
       </div>
-      <button type="button" class="card__trash-button"></button>
+      <button type="button" class="card__trash-button" disabled></button>
     </article>
   </template>
 
