@@ -10,12 +10,18 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const popupInputsValues = [];
-    this._popupInputs.forEach((input) => {
-      popupInputsValues.push(input.value);
+    // const popupInputsValues = [];
+    // this._popupInputs.forEach((input) => {
+    //   popupInputsValues.push(input.value);
+    // });
+
+    // return popupInputsValues;
+    this._popupInputsValues = {};
+    this._popupInputs.forEach(input => {
+      this._popupInputsValues[input.name] = input.value;
     });
 
-    return popupInputsValues;
+    return this._popupInputsValues;
   }
 
   renderLoading(isLoading) {

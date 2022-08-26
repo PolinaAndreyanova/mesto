@@ -1,5 +1,6 @@
 import "./index.css";
 
+import { validationConfig } from "../utils/constants.js"
 import { Card } from "../components/Сard.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
@@ -8,6 +9,8 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Section } from "../components/Section.js";
 import { Api } from "../components/Api.js";
+
+let userId = '';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48',
@@ -23,15 +26,6 @@ const cardList = new Section({
     renderCard(item, '#card-template');
   }
 }, '.cards');
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}; 
 
 const profile = document.querySelector('.profile');
 const profileAvatarEditButton = profile.querySelector('.profile__avatar-edit-button');
@@ -56,70 +50,83 @@ const profileValidation = new FormValidator(validationConfig, formEditProfile);
 const newCardValidation = new FormValidator(validationConfig, formAddCard);
 const avatarValidation = new FormValidator(validationConfig, formEditAvatar);
 
-api.getInitialCards()
-  .then(data => {
-    data.forEach(element => {
-      renderCard({name: element.name, link: element.link, likes: element.likes, ownerId: element.owner._id, id: element._id}, '#card-template')
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserAvatar(userData.avatar);
+
+    cardsData.forEach(element => {
+      renderCard({
+        name: element.name,
+        link: element.link,
+        likes: element.likes,
+        ownerId: element.owner._id,
+        id: element._id,
+        userId: userId
+      }, '#card-template')
     });
   })
   .catch(err => console.log(`Ошибка: ${err}`));
 
-api.getUserInfo()
-  .then(data => {
-    userInfo.setUserInfo(data.name, data.about);
-    userInfo.setUserAvatar(data.avatar);
-  })
-  .catch(err => console.log(`Ошибка: ${err}`));
-
 function handleConfirmDelete(cardId, card) {
-  popupDeleteCard.close();
-  api.deleteCard(cardId).catch(err => console.log(`Ошибка: ${err}`));
-  card.remove();
-  card = null;
+  api.deleteCard(cardId)
+    .then(() => {
+      card.remove();
+      card = null;
+      popupDeleteCard.close()
+    })
+    .catch(err => console.log(`Ошибка: ${err}`));
 }
 
 function submitAvatarForm(inputValues) {
-  const [avatarLinkInput] = inputValues;
-  userInfo.setUserAvatar(avatarLinkInput);
+  const avatarLinkInput = inputValues.avatar;
   api.updateAvatar(avatarLinkInput)
+    .then(() => {
+      userInfo.setUserAvatar(avatarLinkInput);
+      popupEditAvatar.close()
+    })
     .catch(err => console.log(`Ошибка: ${err}`))
-    .finally(() => popupEditAvatar.renderLoading(false));;
-  popupEditAvatar.close();
+    .finally(() => popupEditAvatar.renderLoading(false));
 }
 
 function submitEditForm(inputValues) {
-  const [nameInput, statusInput] = inputValues;
-  userInfo.setUserInfo(nameInput, statusInput);
+  const nameInput = inputValues.name;
+  const statusInput = inputValues.status;
   api.editProfile(nameInput, statusInput)
+    .then(() => {
+      userInfo.setUserInfo(nameInput, statusInput);
+      popupEditProfile.close()
+    })
     .catch(err => console.log(`Ошибка: ${err}`))
     .finally(() => popupEditProfile.renderLoading(false));
-  popupEditProfile.close();
 }
 
 function submitAddForm(inputValues) {
-  const [titleInput, linkInput] = inputValues;
+  const titleInput = inputValues.title;
+  const linkInput = inputValues.link;
   api.addNewCard(titleInput, linkInput)
     .then(data => {
       const newItem = {
         name: data.name, 
         link: data.link,
         likes: [],
-        ownerId: 'a3f5f4862b8ef908b7522ae2',
+        ownerId: userId,
         id: data._id
       }
       renderCard(newItem, '#card-template');
     })
+    .then(popupAddProfile.close())
     .catch(err => console.log(`Ошибка: ${err}`))
-    .finally(() => popupAddProfile.renderLoading(false));;
-  popupAddProfile.close();
+    .finally(() => popupAddProfile.renderLoading(false));
 }
 
 function renderCard(item, cardSelector) {
-  const card = initializationCard(item, cardSelector);
+  const card = createCard(item, cardSelector);
   cardList.addItem(card);
 }
 
-function initializationCard(item, cardSelector) {
+function createCard(item, cardSelector) {
   const card = new Card(item, cardSelector, handleCardClick, handleTrashClick, api);
   const cardElement = card.generateCard();
   return cardElement;
