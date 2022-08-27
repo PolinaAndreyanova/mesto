@@ -21,9 +21,15 @@ const api = new Api({
 }); 
 
 const cardList = new Section({
-  items: [],
   renderer: (item) => {
-    renderCard(item, '#card-template');
+    renderCard({
+      name: item.name,
+      link: item.link,
+      likes: item.likes,
+      ownerId: item.owner._id,
+      id: item._id,
+      userId: userId
+    }, '#card-template');
   }
 }, '.cards');
 
@@ -55,17 +61,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userId = userData._id;
     userInfo.setUserInfo(userData.name, userData.about);
     userInfo.setUserAvatar(userData.avatar);
-
-    cardsData.forEach(element => {
-      renderCard({
-        name: element.name,
-        link: element.link,
-        likes: element.likes,
-        ownerId: element.owner._id,
-        id: element._id,
-        userId: userId
-      }, '#card-template')
-    });
+    cardList.renderItems(cardsData.reverse());
   })
   .catch(err => console.log(`Ошибка: ${err}`));
 
@@ -112,11 +108,14 @@ function submitAddForm(inputValues) {
         link: data.link,
         likes: [],
         ownerId: userId,
-        id: data._id
+        id: data._id,
+        userId: userId
       }
       renderCard(newItem, '#card-template');
     })
-    .then(popupAddProfile.close())
+    .then(() => {
+      popupAddProfile.close();
+    })
     .catch(err => console.log(`Ошибка: ${err}`))
     .finally(() => popupAddProfile.renderLoading(false));
 }
@@ -166,5 +165,3 @@ profileAvatarEditButton.addEventListener('click', () => {
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 avatarValidation.enableValidation();
-
-cardList.renderItems();

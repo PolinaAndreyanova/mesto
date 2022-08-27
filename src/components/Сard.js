@@ -74,7 +74,8 @@ export class Card {
     this._countLikes.textContent = this._likes.length;
     this._cardTrash = this._element.querySelector('.card__trash-button');
     this._cardLike = this._element.querySelector('.card__like-button');
-
+    // console.log(this._ownerId);
+    // console.log(this._userId);
     if (this._ownerId === this._userId) {
       this._cardTrash.disabled = false;
       this._cardTrash.style.visibility = 'visible';
